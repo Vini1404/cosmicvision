@@ -23,8 +23,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Map<String, dynamic> _imageInfo = {}; // Adicionado esta linha
   String _heroImageUrl =
-      'https://cosmicvision.com.br/wp-content/uploads/2023/08/Logotipo-Cosmic-Vision.png'; // Imagem inicial
+      'https://cosmicvision.com.br/wp-content/uploads/2024/01/Logotipo-Cosmic-Vision.png'; // Imagem inicial
 
   @override
   void initState() {
@@ -33,13 +34,13 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> _atualizarImagemInicial() async {
-    // Aguarde 1 segundo (1000 milissegundos) antes de atualizar a imagem
-    await Future.delayed(const Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 5000));
 
     final imageInfo = await _buscarImagemAleatoriaDiaria();
     if (imageInfo.isNotEmpty) {
       setState(() {
         _heroImageUrl = imageInfo['hdurl'];
+        _imageInfo = imageInfo;
       });
     }
   }
@@ -57,6 +58,7 @@ class _HomeState extends State<Home> {
         return {
           'title': item['title'],
           'hdurl': item['hdurl'],
+          'explanation': item['explanation'],
           'date': item['date'],
           'media_type': item['media_type'],
           'video_url': item['media_type'] == 'video' ? item['hdurl'] : null,
@@ -113,20 +115,15 @@ class _HomeState extends State<Home> {
     }
   }
 
-  void _abrirRetorno() async {
-    // Carregue as informações da imagem antes de navegar para os detalhes
-    final imageInfo = await _buscarImagemAleatoriaDiaria();
-
-    if (imageInfo.isNotEmpty) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DetalhesImagem(
-            imageInfo: imageInfo,
-          ),
+  void _abrirRetorno() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DetalhesImagem(
+          imageInfo: _imageInfo, // Use as informações já armazenadas no estado
         ),
-      );
-    }
+      ),
+    );
   }
 
   @override
@@ -146,16 +143,6 @@ class _HomeState extends State<Home> {
                 child: Image.asset(
                   "images/Logotipo Cosmic Vision.png",
                   fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            const ListTile(
-              title: Text(
-                "________________________________________________",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.white,
                 ),
               ),
             ),
@@ -221,11 +208,11 @@ class _HomeState extends State<Home> {
             ),
             ListTile(
               leading: const Icon(
-                FontAwesomeIcons.circleInfo,
+                FontAwesomeIcons.solidCircleUser,
                 color: Colors.white,
               ),
               title: const Text(
-                "Sobre",
+                "Desenvolvedores",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -240,6 +227,7 @@ class _HomeState extends State<Home> {
       backgroundColor: const Color.fromARGB(255, 34, 34, 34),
       appBar: AppBar(
         toolbarHeight: 70,
+        iconTheme: const IconThemeData(color: Colors.white),
         title: Padding(
           padding: const EdgeInsets.only(left: 38),
           child: Image.asset('images/Logo-Header.png', height: 53),
@@ -263,7 +251,7 @@ class _HomeState extends State<Home> {
               color: Colors.white,
               size: 30,
             ),
-            label: '______',
+            label: '_____',
           ),
           BottomNavigationBarItem(
             backgroundColor: Color(0xFF286650),
@@ -272,7 +260,7 @@ class _HomeState extends State<Home> {
               color: Colors.white,
               size: 30,
             ),
-            label: '______',
+            label: '_____',
           ),
           BottomNavigationBarItem(
             backgroundColor: Color(0xFF286650),
@@ -281,7 +269,7 @@ class _HomeState extends State<Home> {
               color: Colors.white,
               size: 30,
             ),
-            label: '______',
+            label: '_____',
           ),
           BottomNavigationBarItem(
             backgroundColor: Color(0xFF286650),
@@ -290,7 +278,7 @@ class _HomeState extends State<Home> {
               color: Colors.white,
               size: 30,
             ),
-            label: '______',
+            label: '_____',
           ),
         ],
       ),
@@ -321,372 +309,365 @@ class _HomeState extends State<Home> {
             padding: const EdgeInsetsDirectional.fromSTEB(12, 12, 12, 12),
             child: SingleChildScrollView(
               child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                      GestureDetector(
-                        onTap: _abrirRetorno,
-                        child: Hero(
-                          tag: 'locationImage',
-                          transitionOnUserGestures: true,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.network(
-                              _heroImageUrl,
-                              width: MediaQuery.of(context).size.width * 0.75,
-                              height: MediaQuery.of(context).size.height * 0.35,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () => _abrirRetorno(),
+                    child: Hero(
+                      tag: 'locationImage',
+                      transitionOnUserGestures: true,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          _heroImageUrl,
+                          width: MediaQuery.of(context).size.width * 0.75,
+                          height: MediaQuery.of(context).size.height * 0.35,
+                          fit: BoxFit.fitHeight,
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Confira uma imagem aleatória | Confira o poder do no APP',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Confira uma imagem astrônomica aleatória',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                    child: Text(
+                      'BEM VINDO!!',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 5.0,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 40),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(4, 4, 0, 0),
+                    child: Text(
+                      'Prepare-se para uma jornada única e emocionante pelo Cosmos!',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.normal,
+                          color: const Color.fromARGB(255, 44, 151, 114),
+                          fontSize: 17),
+                    ),
+                  ),
+                  const Divider(
+                    height: 32,
+                    thickness: 1,
+                    color: Color.fromARGB(255, 224, 227, 231),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                    child: Text(
+                      'Introdução',
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.normal,
+                          color: Colors.white,
+                          fontSize: 16),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(4, 4, 0, 0),
+                    child: Text(
+                      'Descubra as maravilhas do universo com o Cosmic Vision, o seu guia diário para as imagens astronômicas mais deslumbrantes já capturadas.\nNavegue por uma coleção única de fotografias e mergulhe nas profundezas do espaço sideral.\n\nA cada dia, uma nova imagem é cuidadosamente selecionada pela NASA e apresentada aqui, acompanhada de detalhes fascinantes sobre o cosmos, e delicie-se com a beleza estonteante das galáxias distantes, dos planetas misteriosos e das constelações brilhantes.\n\nExplore os segredos do universo enquanto aprende sobre as descobertas científicas mais recentes, e ainda fique atualizaaado com as explorações espaciais, os avanços tecnológicos e as curiosidades cósmicas que nos rodeiam.\n\nCompartilhe sua paixão pelo espaço com outros entusiastas, inspire-se com a vastidão do universo e deixe-se levar pelas imagens que despertam sua imaginação.',
+                      textAlign: TextAlign.justify,
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.normal,
+                        fontStyle: FontStyle.normal,
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  const Divider(
+                    height: 32,
+                    thickness: 1,
+                    color: Color.fromARGB(255, 224, 227, 231),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                    child: Text(
+                      'Como Funciona?',
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.normal,
+                          color: Colors.white,
+                          fontSize: 16),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(4, 4, 0, 0),
+                    child: Text(
+                      'O Cosmic Vision é um aplicativo que utiliza a API APOD para trazer diariamente imagens astronômicas surpreendentes, juntamente com informações detalhadas sobre o universo. Os usuários podem explorar imagens anteriores, selecionar um período específico para visualizar imagens e salvar suas favoritas em uma galeria personalizada. Com uma interface intuitiva e conteúdo cativante, o Cosmic Vision oferece uma experiência educacional e inspiradora no mundo da astronomia.',
+                      textAlign: TextAlign.justify,
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.normal,
+                        fontStyle: FontStyle.normal,
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                    child: ElevatedButton(
+                      onPressed: () => _abrirLink(
+                          'https://apod.nasa.gov/apod/astropix.html'),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: const Color(0xFF194B39),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 20),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            FaIcon(
+                              FontAwesomeIcons.earthAmericas,
+                              size: 20,
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              'Site oficial da APOD',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Divider(
+                    height: 32,
+                    thickness: 1,
+                    color: Color.fromARGB(255, 224, 227, 231),
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const FaIcon(
+                        FontAwesomeIcons.chevronLeft,
+                        size: 20,
+                        color: Colors.white,
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                        child: Text(
+                          'Funcionalidades',
+                          style: GoogleFonts.poppins(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 10),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                        child: Text(
-                          'BEM VINDO!!',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 5.0,
-                              fontStyle: FontStyle.italic,
-                              fontSize: 40),
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(4, 4, 0, 0),
-                        child: Text(
-                          'Prepare-se para uma jornada única e emocionante pelo Cosmos!',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.normal,
-                              color: const Color.fromARGB(255, 44, 151, 114),
-                              fontSize: 17),
-                        ),
-                      ),
-                      const Divider(
-                        height: 32,
-                        thickness: 1,
-                        color: Color.fromARGB(255, 224, 227, 231),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
-                        child: Text(
-                          'Introdução',
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.normal,
-                              color: Colors.white,
-                              fontSize: 16),
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(4, 4, 0, 0),
-                        child: Text(
-                          'Descubra as maravilhas do universo com o Cosmic Vision, o seu guia diário para as imagens astronômicas mais deslumbrantes já capturadas.\nNavegue por uma coleção única de fotografias e mergulhe nas profundezas do espaço sideral.\n\nA cada dia, uma nova imagem é cuidadosamente selecionada pela NASA e apresentada aqui, acompanhada de detalhes fascinantes sobre o cosmos, e delicie-se com a beleza estonteante das galáxias distantes, dos planetas misteriosos e das constelações brilhantes.\n\nExplore os segredos do universo enquanto aprende sobre as descobertas científicas mais recentes, e ainda fique atualizaaado com as explorações espaciais, os avanços tecnológicos e as curiosidades cósmicas que nos rodeiam.\n\nCompartilhe sua paixão pelo espaço com outros entusiastas, inspire-se com a vastidão do universo e deixe-se levar pelas imagens que despertam sua imaginação.',
-                          textAlign: TextAlign.justify,
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.normal,
-                            fontStyle: FontStyle.normal,
-                            color: Colors.white,
-                            fontSize: 16,
+                            fontSize: 20,
                           ),
                         ),
                       ),
-                      const Divider(
-                        height: 32,
-                        thickness: 1,
-                        color: Color.fromARGB(255, 224, 227, 231),
+                      const FaIcon(
+                        FontAwesomeIcons.chevronRight,
+                        size: 20,
+                        color: Colors.white,
                       ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
-                        child: Text(
-                          'Como Funciona?',
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.normal,
-                              color: Colors.white,
-                              fontSize: 16),
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(4, 4, 0, 0),
-                        child: Text(
-                          'O Cosmic Vision é um aplicativo que utiliza a API APOD para trazer diariamente imagens astronômicas surpreendentes, juntamente com informações detalhadas sobre o universo. Os usuários podem explorar imagens anteriores, selecionar um período específico para visualizar imagens e salvar suas favoritas em uma galeria personalizada. Com uma interface intuitiva e conteúdo cativante, o Cosmic Vision oferece uma experiência educacional e inspiradora no mundo da astronomia.',
-                          textAlign: TextAlign.justify,
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.normal,
-                            fontStyle: FontStyle.normal,
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                        child: ElevatedButton(
-                          onPressed: () => _abrirLink(
-                              'https://apod.nasa.gov/apod/astropix.html'),
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.white,
-                            backgroundColor: const Color(0xFF194B39),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 20),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                FaIcon(
-                                  FontAwesomeIcons.earthAmericas,
-                                  size: 20,
-                                ),
-                                SizedBox(width: 8),
-                                Text(
-                                  'Site oficial da APOD',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      const Divider(
-                        height: 32,
-                        thickness: 1,
-                        color: Color.fromARGB(255, 224, 227, 231),
-                      ),
-                      Row(
+                    ],
+                  ),
+                  CarouselSlider(
+                    options: CarouselOptions(
+                      height: 120,
+                      aspectRatio: 16 / 9,
+                      viewportFraction: 0.8,
+                      initialPage: 0,
+                      enableInfiniteScroll:
+                          true, // Isso habilita o carrossel infinito
+                      reverse: false,
+                      autoPlay: true,
+                      autoPlayInterval: const Duration(seconds: 3),
+                      autoPlayAnimationDuration:
+                          const Duration(milliseconds: 800),
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      onPageChanged: (index, reason) {},
+                      scrollDirection: Axis.horizontal,
+                    ),
+                    items: [
+                      Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const FaIcon(
-                            FontAwesomeIcons.chevronLeft,
-                            size: 20,
-                            color: Colors.white,
+                            FontAwesomeIcons.image,
+                            color: Color(0xFF286650),
+                            size: 44,
                           ),
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                10, 0, 10, 0),
-                            child: Text(
-                              'Funcionalidades',
-                              style: GoogleFonts.poppins(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-                          const FaIcon(
-                            FontAwesomeIcons.chevronRight,
-                            size: 20,
-                            color: Colors.white,
+                                0, 8, 0, 0),
+                            child: Text('Exibir a imagem do dia',
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.normal,
+                                    color: Colors.white,
+                                    fontSize: 16)),
                           ),
                         ],
                       ),
-                      CarouselSlider(
-                        options: CarouselOptions(
-                          height: 120,
-                          aspectRatio: 16 / 9,
-                          viewportFraction: 0.8,
-                          initialPage: 0,
-                          enableInfiniteScroll:
-                              true, // Isso habilita o carrossel infinito
-                          reverse: false,
-                          autoPlay: true,
-                          autoPlayInterval: const Duration(seconds: 3),
-                          autoPlayAnimationDuration:
-                              const Duration(milliseconds: 800),
-                          autoPlayCurve: Curves.fastOutSlowIn,
-                          onPageChanged: (index, reason) {},
-                          scrollDirection: Axis.horizontal,
-                        ),
-                        items: [
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const FaIcon(
-                                FontAwesomeIcons.image,
-                                color: Color(0xFF286650),
-                                size: 44,
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 8, 0, 0),
-                                child: Text('Exibir a imagem do dia',
-                                    style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.bold,
-                                        fontStyle: FontStyle.normal,
-                                        color: Colors.white,
-                                        fontSize: 16)),
-                              ),
-                            ],
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const FaIcon(
+                            FontAwesomeIcons.calendarDay,
+                            color: Color(0xFF286650),
+                            size: 44,
                           ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const FaIcon(
-                                FontAwesomeIcons.calendarDay,
-                                color: Color(0xFF286650),
-                                size: 44,
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 8, 0, 0),
-                                child: Text('Pesquisar qualquer data',
-                                    style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.bold,
-                                        fontStyle: FontStyle.normal,
-                                        color: Colors.white,
-                                        fontSize: 16)),
-                              ),
-                            ],
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 8, 0, 0),
+                            child: Text('Pesquisar qualquer data',
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.normal,
+                                    color: Colors.white,
+                                    fontSize: 16)),
                           ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const FaIcon(
-                                FontAwesomeIcons.calendarWeek,
-                                color: Color(0xFF286650),
-                                size: 44,
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 8, 0, 0),
-                                child: Text(
-                                  'Período de imagens por datas',
-                                  style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.bold,
-                                      fontStyle: FontStyle.normal,
-                                      color: Colors.white,
-                                      fontSize: 16),
-                                ),
-                              ),
-                            ],
+                        ],
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const FaIcon(
+                            FontAwesomeIcons.calendarWeek,
+                            color: Color(0xFF286650),
+                            size: 44,
                           ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const FaIcon(
-                                FontAwesomeIcons.wandMagicSparkles,
-                                color: Color(0xFF286650),
-                                size: 44,
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 8, 0, 0),
-                                child: Text(
-                                  'Ver Imagens Aleatórias',
-                                  style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.bold,
-                                      fontStyle: FontStyle.normal,
-                                      color: Colors.white,
-                                      fontSize: 16),
-                                ),
-                              ),
-                            ],
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 8, 0, 0),
+                            child: Text(
+                              'Período de imagens por datas',
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.normal,
+                                  color: Colors.white,
+                                  fontSize: 16),
+                            ),
                           ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const FaIcon(
-                                FontAwesomeIcons.cloudArrowDown,
-                                color: Color(0xFF286650),
-                                size: 44,
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 8, 0, 0),
-                                child: Text(
-                                  'Fazer o Download das imagens',
-                                  style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.bold,
-                                      fontStyle: FontStyle.normal,
-                                      color: Colors.white,
-                                      fontSize: 16),
-                                ),
-                              ),
-                            ],
+                        ],
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const FaIcon(
+                            FontAwesomeIcons.wandMagicSparkles,
+                            color: Color(0xFF286650),
+                            size: 44,
                           ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const FaIcon(
-                                FontAwesomeIcons.share,
-                                color: Color(0xFF286650),
-                                size: 44,
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 8, 0, 0),
-                                child: Text(
-                                  'Compartilhar pelo APP',
-                                  style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.bold,
-                                      fontStyle: FontStyle.normal,
-                                      color: Colors.white,
-                                      fontSize: 16),
-                                ),
-                              ),
-                            ],
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 8, 0, 0),
+                            child: Text(
+                              'Ver Imagens Aleatórias',
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.normal,
+                                  color: Colors.white,
+                                  fontSize: 16),
+                            ),
                           ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const FaIcon(
-                                FontAwesomeIcons.message,
-                                color: Color(0xFF286650),
-                                size: 44,
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 8, 0, 0),
-                                child: Text(
-                                  'Notificação da Imagem do Dia',
-                                  style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.bold,
-                                      fontStyle: FontStyle.normal,
-                                      color: Colors.white,
-                                      fontSize: 16),
-                                ),
-                              ),
-                            ],
+                        ],
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const FaIcon(
+                            FontAwesomeIcons.cloudArrowDown,
+                            color: Color(0xFF286650),
+                            size: 44,
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 8, 0, 0),
+                            child: Text(
+                              'Fazer o Download das imagens',
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.normal,
+                                  color: Colors.white,
+                                  fontSize: 16),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const FaIcon(
+                            FontAwesomeIcons.share,
+                            color: Color(0xFF286650),
+                            size: 44,
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 8, 0, 0),
+                            child: Text(
+                              'Compartilhar pelo APP',
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.normal,
+                                  color: Colors.white,
+                                  fontSize: 16),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const FaIcon(
+                            FontAwesomeIcons.message,
+                            color: Color(0xFF286650),
+                            size: 44,
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 8, 0, 0),
+                            child: Text(
+                              'Notificação da Imagem do Dia',
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.normal,
+                                  color: Colors.white,
+                                  fontSize: 16),
+                            ),
                           ),
                         ],
                       ),
                     ],
                   ),
+                ],
+              ),
             ),
           ),
         ),

@@ -168,7 +168,10 @@ class _PesquisarDataState extends State<PesquisarData> {
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Colors.red),
                     ),
-                    icon: const FaIcon(FontAwesomeIcons.trash),
+                    icon: const FaIcon(
+                      FontAwesomeIcons.trash,
+                      color: Colors.white,
+                    ),
                     onPressed: () {
                       setState(() {
                         _selectedDate = '';
@@ -195,7 +198,8 @@ class _PesquisarDataState extends State<PesquisarData> {
                         backgroundColor: MaterialStateProperty.all<Color>(
                             const Color(0xFF194B39)),
                       ),
-                      icon: const FaIcon(FontAwesomeIcons.magnifyingGlass),
+                      icon: const FaIcon(FontAwesomeIcons.magnifyingGlass,
+                          color: Colors.white),
                       onPressed: () => _buscarImagemPorData(),
                       label: Text(
                         'Pesquisar',
@@ -211,7 +215,7 @@ class _PesquisarDataState extends State<PesquisarData> {
                 ],
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 30),
             _title.isNotEmpty
                 ? Column(
                     children: [
@@ -228,40 +232,43 @@ class _PesquisarDataState extends State<PesquisarData> {
                       const SizedBox(height: 10),
                       _buildContent(),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 0),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            ElevatedButton.icon(
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  const Color(0xFF194B39),
-                                ),
-                              ),
-                              icon: const FaIcon(
-                                FontAwesomeIcons.floppyDisk,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                ImageHelper imageHelper = ImageHelper();
-                                if (_imageUrl.isNotEmpty) {
-                                  imageHelper.downloadMedia(
-                                      context, _imageUrl); // Para imagens
-                                } else if (_response != null) {
-                                  imageHelper.downloadMedia(context, _response);
-                                }
-                              },
-                              label: Text(
-                                'Baixar Imagem',
-                                style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.normal,
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ),
+                            Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 50, 0),
+                                child: ElevatedButton.icon(
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                      const Color(0xFF194B39),
+                                    ),
+                                  ),
+                                  icon: const FaIcon(
+                                    FontAwesomeIcons.floppyDisk,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: () {
+                                    ImageHelper imageHelper = ImageHelper();
+                                    if (_imageUrl.isNotEmpty) {
+                                      imageHelper.downloadMedia(
+                                          context, _imageUrl); // Para imagens
+                                    } else if (_response != null) {
+                                      imageHelper.downloadMedia(
+                                          context, _response);
+                                    }
+                                  },
+                                  label: Text(
+                                    'Baixar',
+                                    style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FontStyle.normal,
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                )),
                             ElevatedButton.icon(
                               style: ButtonStyle(
                                 backgroundColor:
@@ -276,7 +283,7 @@ class _PesquisarDataState extends State<PesquisarData> {
                               onPressed: () =>
                                   ImageHelper().shareImage(context, _imageUrl),
                               label: Text(
-                                'Compartilhar Imagem',
+                                'Compartilhar',
                                 style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.normal,
@@ -289,7 +296,20 @@ class _PesquisarDataState extends State<PesquisarData> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 2, 16, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
+                        child: Text(
+                          "Descrição".toUpperCase(),
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.normal,
+                            color: const Color.fromARGB(255, 0, 230, 148),
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 2, 10, 10),
                         child: Text(
                           _description,
                           textAlign: TextAlign.justify,

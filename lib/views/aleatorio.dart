@@ -119,7 +119,10 @@ class _AleatorioState extends State<Aleatorio> {
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Colors.red),
                     ),
-                    icon: const FaIcon(FontAwesomeIcons.trash),
+                    icon: const FaIcon(
+                      FontAwesomeIcons.trash,
+                      color: Colors.white,
+                    ),
                     onPressed: () {
                       setState(() => _limparImagens());
                     },
@@ -138,7 +141,10 @@ class _AleatorioState extends State<Aleatorio> {
                       backgroundColor: MaterialStateProperty.all<Color>(
                           const Color(0xFF194B39)),
                     ),
-                    icon: const FaIcon(FontAwesomeIcons.magnifyingGlass),
+                    icon: const FaIcon(
+                      FontAwesomeIcons.magnifyingGlass,
+                      color: Colors.white,
+                    ),
                     onPressed: () => _buscarImagensAleatorias(),
                     label: Text(
                       'Pesquisar',
@@ -188,7 +194,7 @@ class _AleatorioState extends State<Aleatorio> {
                   }
                   return Column(
                     children: [
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 20),
                       Text(
                         title,
                         textAlign: TextAlign.center,
@@ -205,7 +211,7 @@ class _AleatorioState extends State<Aleatorio> {
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.normal,
-                          color: Colors.white,
+                          color: const Color.fromARGB(255, 0, 230, 148),
                           fontSize: 10,
                         ),
                       ),
@@ -215,37 +221,40 @@ class _AleatorioState extends State<Aleatorio> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              ElevatedButton.icon(
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                    const Color(0xFF194B39),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(0, 10, 50, 10),
+                                child: ElevatedButton.icon(
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                      const Color(0xFF194B39),
+                                    ),
                                   ),
-                                ),
-                                icon: const FaIcon(
-                                  FontAwesomeIcons.floppyDisk,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () {
-                                  ImageHelper imageHelper = ImageHelper();
-                                  if (url.isNotEmpty) {
-                                    imageHelper.downloadMedia(
-                                      context,
-                                      url,
-                                    );
-                                  }
-                                },
-                                label: Text(
-                                  'Baixar Imagem',
-                                  style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.bold,
-                                    fontStyle: FontStyle.normal,
+                                  icon: const FaIcon(
+                                    FontAwesomeIcons.floppyDisk,
                                     color: Colors.white,
-                                    fontSize: 14,
+                                  ),
+                                  onPressed: () {
+                                    ImageHelper imageHelper = ImageHelper();
+                                    if (url.isNotEmpty) {
+                                      imageHelper.downloadMedia(
+                                        context,
+                                        url,
+                                      );
+                                    }
+                                  },
+                                  label: Text(
+                                    'Baixar',
+                                    style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FontStyle.normal,
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                    ),
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 10),
                               ElevatedButton.icon(
                                 style: ButtonStyle(
                                   backgroundColor:
@@ -260,7 +269,7 @@ class _AleatorioState extends State<Aleatorio> {
                                 onPressed: () =>
                                     ImageHelper().shareImage(context, url),
                                 label: Text(
-                                  'Compartilhar Imagem',
+                                  'Compartilhar',
                                   style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal,

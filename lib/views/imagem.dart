@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:cosmicvision/imagehelper.dart';
 import 'package:cosmicvision/models/nasa_api_client.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:translator/translator.dart';
 
 class ImagemDoDia extends StatefulWidget {
   const ImagemDoDia({Key? key}) : super(key: key);
@@ -20,17 +21,46 @@ class ImagemDoDiaState extends State<ImagemDoDia> {
       NasaApiClient(apiKey: 'RvMqHjtuK9Cm1X7WZYmtJ0KWskxuGdYw4uzpgqwV');
 
   dynamic _response;
+  late Map<String, dynamic> data;
 
   @override
   void initState() {
     super.initState();
     imagemDoDia = nasaApiClient.pegarImagemDoDia();
+    data = {};
+  }
+
+  Future<String> traduzirTexto(String texto) async {
+    final translator = GoogleTranslator();
+    var traducao = await translator.translate(texto, from: 'en', to: 'pt');
+    return traducao.text;
+  }
+
+  void _traduzirInformacoes() async {
+    // Verifica se 'title' e 'explanation' não são nulos ou ausentes no mapa
+    if (data['title'] != null && data['explanation'] != null) {
+      final tituloTraduzido = await traduzirTexto(data['title']);
+      final explicacaoTraduzida = await traduzirTexto(data['explanation']);
+      // Atualiza o estado com as informações traduzidas
+      setState(() {
+        data['title'] = tituloTraduzido;
+        data['explanation'] = explicacaoTraduzida;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 34, 34, 34),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color.fromARGB(255, 74, 140, 245),
+        onPressed: _traduzirInformacoes,
+        child: const Icon(
+          Icons.g_translate,
+          color: Colors.white,
+        ),
+      ),
       appBar: AppBar(
         centerTitle: true,
         title: Row(
@@ -78,7 +108,7 @@ class ImagemDoDiaState extends State<ImagemDoDia> {
         future: imagemDoDia,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return const CircularProgressIndicator(color: Color(0xFF194B39));
           } else if (snapshot.hasError || snapshot.data == null) {
             return const FaIcon(
               FontAwesomeIcons.triangleExclamation,
@@ -98,14 +128,16 @@ class ImagemDoDiaState extends State<ImagemDoDia> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 5, 8, 0),
+                        padding: const EdgeInsets.fromLTRB(8, 20, 8, 10),
                         child: Text(
                           data['title'].toUpperCase(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.normal,
                             color: Colors.white,
-                            fontSize: 22,
+                            fontSize: 18,
                           ),
                         ),
                       ),
@@ -118,7 +150,7 @@ class ImagemDoDiaState extends State<ImagemDoDia> {
                         : _YoutubePlayerWidget(videoUrl: videoUrl!),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -142,7 +174,7 @@ class ImagemDoDiaState extends State<ImagemDoDia> {
                             }
                           },
                           label: Text(
-                            'Baixar Imagem',
+                            'Baixar',
                             style: GoogleFonts.poppins(
                               fontWeight: FontWeight.bold,
                               fontStyle: FontStyle.normal,
@@ -164,7 +196,7 @@ class ImagemDoDiaState extends State<ImagemDoDia> {
                           onPressed: () =>
                               ImageHelper().shareImage(context, imageUrl),
                           label: Text(
-                            'Compartilhar Imagem',
+                            'Compartilhar',
                             style: GoogleFonts.poppins(
                               fontWeight: FontWeight.bold,
                               fontStyle: FontStyle.normal,
@@ -174,6 +206,19 @@ class ImagemDoDiaState extends State<ImagemDoDia> {
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
+                    child: Text(
+                      "Descrição".toUpperCase(),
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.normal,
+                        color: const Color.fromARGB(255, 0, 230, 148),
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                   Padding(

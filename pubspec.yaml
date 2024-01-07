@@ -48,6 +48,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   fluttertoast: ^8.2.2
   carousel_slider: ^4.0.0
+  translator: any
 
 
 dev_dependencies:

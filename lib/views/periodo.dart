@@ -101,7 +101,7 @@ class _PeriodoDataState extends State<PeriodoData> {
                 children: [
                   const SizedBox(height: 80),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
@@ -112,7 +112,7 @@ class _PeriodoDataState extends State<PeriodoData> {
                       child: Text(
                         _datacomeco != null
                             ? DateFormat('dd/MM/yyyy').format(_datacomeco!)
-                            : 'Selecionar Data Inicial',
+                            : 'DATA INICIAL',
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.normal,
@@ -132,7 +132,7 @@ class _PeriodoDataState extends State<PeriodoData> {
                     child: Text(
                       _datafim != null
                           ? DateFormat('dd/MM/yyyy').format(_datafim!)
-                          : 'Selecionar Data Final',
+                          : 'DATA FINAL',
                       style: GoogleFonts.poppins(
                         fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.normal,
@@ -153,7 +153,8 @@ class _PeriodoDataState extends State<PeriodoData> {
                         backgroundColor:
                             MaterialStateProperty.all<Color>(Colors.red),
                       ),
-                      icon: const FaIcon(FontAwesomeIcons.trash),
+                      icon: const FaIcon(FontAwesomeIcons.trash,
+                          color: Colors.white),
                       onPressed: () => _limpar(),
                       label: Text(
                         'Limpar',
@@ -173,7 +174,8 @@ class _PeriodoDataState extends State<PeriodoData> {
                             const Color(0xFF194B39),
                           ),
                         ),
-                        icon: const FaIcon(FontAwesomeIcons.magnifyingGlass),
+                        icon: const FaIcon(FontAwesomeIcons.magnifyingGlass,
+                            color: Colors.white),
                         onPressed: () => _pesquisarimagemporperiodo(),
                         label: Text(
                           'Pesquisar',
@@ -197,7 +199,8 @@ class _PeriodoDataState extends State<PeriodoData> {
                     final imageData = _imageData[index];
                     final title = imageData['title'];
                     final date = imageData['date'];
-                    final formattedDate = DateFormat('dd/MM/yyyy').format(DateTime.parse(date));
+                    final formattedDate =
+                        DateFormat('dd/MM/yyyy').format(DateTime.parse(date));
                     final mediaType = imageData['media_type'];
                     final url = imageData['url'];
                     Widget content;
@@ -224,7 +227,7 @@ class _PeriodoDataState extends State<PeriodoData> {
                     }
                     return Column(
                       children: [
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 50),
                         Text(
                           title,
                           textAlign: TextAlign.center,
@@ -241,71 +244,75 @@ class _PeriodoDataState extends State<PeriodoData> {
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.normal,
-                            color: Colors.white,
+                            color: const Color.fromARGB(255, 0, 230, 148),
                             fontSize: 10,
                           ),
                         ),
                         const SizedBox(height: 10),
                         content,
                         if (mediaType == 'image')
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton.icon(
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                    const Color(0xFF194B39),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                  child: ElevatedButton.icon(
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                        const Color(0xFF194B39),
+                                      ),
+                                    ),
+                                    icon: const FaIcon(
+                                      FontAwesomeIcons.floppyDisk,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () {
+                                      ImageHelper imageHelper = ImageHelper();
+                                      if (url.isNotEmpty) {
+                                        imageHelper.downloadMedia(
+                                          context,
+                                          url,
+                                        );
+                                      }
+                                    },
+                                    label: Text(
+                                      'Baixar',
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FontStyle.normal,
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                icon: const FaIcon(
-                                  FontAwesomeIcons.floppyDisk,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () {
-                                  ImageHelper imageHelper = ImageHelper();
-                                  if (url.isNotEmpty) {
-                                    imageHelper.downloadMedia(
-                                      context,
-                                      url,
-                                    );
-                                  }
-                                },
-                                label: Text(
-                                  'Baixar Imagem',
-                                  style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.bold,
-                                    fontStyle: FontStyle.normal,
+                                const SizedBox(width: 10),
+                                ElevatedButton.icon(
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                      const Color(0xFF194B39),
+                                    ),
+                                  ),
+                                  icon: const FaIcon(
+                                    FontAwesomeIcons.shareNodes,
                                     color: Colors.white,
-                                    fontSize: 14,
+                                  ),
+                                  onPressed: () =>
+                                      ImageHelper().shareImage(context, url),
+                                  label: Text(
+                                    'Compartilhar',
+                                    style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FontStyle.normal,
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(width: 10),
-                              ElevatedButton.icon(
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                    const Color(0xFF194B39),
-                                  ),
-                                ),
-                                icon: const FaIcon(
-                                  FontAwesomeIcons.shareNodes,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () =>
-                                    ImageHelper().shareImage(context, url),
-                                label: Text(
-                                  'Compartilhar Imagem',
-                                  style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.bold,
-                                    fontStyle: FontStyle.normal,
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ),
-                            ])
+                              ])
                       ],
                     );
                   },

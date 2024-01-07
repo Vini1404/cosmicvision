@@ -9,8 +9,11 @@ Future<void> main() async {
   if (await Permission.notification.isGranted) {
     NotificationHelper.scheduleDailyNotification();
   }
-  runApp(const MaterialApp(
-    home: Home(),
+  runApp(MaterialApp(
+    theme: ThemeData(
+        appBarTheme:
+            const AppBarTheme(iconTheme: IconThemeData(color: Colors.white))),
+    home: const Home(),
     debugShowCheckedModeBanner: false,
   ));
 }
