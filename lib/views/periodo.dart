@@ -83,7 +83,7 @@ class _PeriodoDataState extends State<PeriodoData> {
           centerTitle: true,
           backgroundColor: const Color(0xFF194B39),
           title: Text(
-            'Exibir Imagens por Período',
+            'Imagens por Período'.toUpperCase(),
             style: GoogleFonts.poppins(
               fontWeight: FontWeight.bold,
               fontStyle: FontStyle.normal,
@@ -235,9 +235,10 @@ class _PeriodoDataState extends State<PeriodoData> {
                             fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.normal,
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 22,
                           ),
                         ),
+                        const SizedBox(height: 8),
                         Text(
                           formattedDate,
                           textAlign: TextAlign.center,
@@ -245,7 +246,7 @@ class _PeriodoDataState extends State<PeriodoData> {
                             fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.normal,
                             color: const Color.fromARGB(255, 0, 230, 148),
-                            fontSize: 10,
+                            fontSize: 15,
                           ),
                         ),
                         const SizedBox(height: 10),

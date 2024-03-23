@@ -226,13 +226,11 @@ class _HomeState extends State<Home> {
       ),
       backgroundColor: const Color.fromARGB(255, 34, 34, 34),
       appBar: AppBar(
-        toolbarHeight: 70,
+        toolbarHeight: 75,
         iconTheme: const IconThemeData(color: Colors.white),
-        title: Padding(
-          padding: const EdgeInsets.only(left: 38),
-          child: Image.asset('images/Logo-Header.png', height: 53),
-        ),
+        title: Image.asset('images/Logo-Header.png', height: 50),
         backgroundColor: const Color(0xFF286650),
+        centerTitle: true,
       ),
       body: _getBody(),
       bottomNavigationBar: BottomNavigationBar(

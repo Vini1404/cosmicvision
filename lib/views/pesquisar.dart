@@ -120,7 +120,7 @@ class _PesquisarDataState extends State<PesquisarData> {
               centerTitle: true,
               backgroundColor: const Color(0xFF194B39),
               title: Text(
-                'Pesquisar Imagem por Data',
+                'Imagem por Data'.toUpperCase(),
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.normal,

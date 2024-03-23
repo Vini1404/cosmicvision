@@ -41,11 +41,12 @@ class ImagemDoDiaState extends State<ImagemDoDia> {
     if (data['title'] != null && data['explanation'] != null) {
       final tituloTraduzido = await traduzirTexto(data['title']);
       final explicacaoTraduzida = await traduzirTexto(data['explanation']);
-      // Atualiza o estado com as informações traduzidas
-      setState(() {
-        data['title'] = tituloTraduzido;
-        data['explanation'] = explicacaoTraduzida;
-      });
+      if (mounted) {
+        setState(() {
+          data['title'] = tituloTraduzido;
+          data['explanation'] = explicacaoTraduzida;
+        });
+      }
     }
   }
 
@@ -95,7 +96,7 @@ class ImagemDoDiaState extends State<ImagemDoDia> {
                   fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.normal,
                   color: Colors.white,
-                  fontSize: 23,
+                  fontSize: 20,
                 ),
               ),
             ),
@@ -127,30 +128,31 @@ class ImagemDoDiaState extends State<ImagemDoDia> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 20, 8, 10),
-                        child: Text(
-                          data['title'].toUpperCase(),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.normal,
-                            color: Colors.white,
-                            fontSize: 18,
+                      Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 20, 8, 10),
+                          child: Text(
+                            data['title'],
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.normal,
+                              color: Colors.white,
+                              fontSize: 25,
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: mediaType == 'image'
                         ? Image.network(imageUrl, width: double.infinity)
                         : _YoutubePlayerWidget(videoUrl: videoUrl!),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+                    padding: const EdgeInsets.fromLTRB(15, 10, 10, 5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -209,7 +211,7 @@ class ImagemDoDiaState extends State<ImagemDoDia> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 5),
                     child: Text(
                       "Descrição".toUpperCase(),
                       textAlign: TextAlign.center,
@@ -217,7 +219,7 @@ class ImagemDoDiaState extends State<ImagemDoDia> {
                         fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.normal,
                         color: const Color.fromARGB(255, 0, 230, 148),
-                        fontSize: 20,
+                        fontSize: 25,
                       ),
                     ),
                   ),
