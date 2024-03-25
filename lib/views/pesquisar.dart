@@ -120,12 +120,12 @@ class _PesquisarDataState extends State<PesquisarData> {
               centerTitle: true,
               backgroundColor: const Color(0xFF194B39),
               title: Text(
-                'Imagem por Data'.toUpperCase(),
+                'Imagem Por Data',
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.normal,
                   color: Colors.white,
-                  fontSize: 23,
+                  fontSize: 25,
                 ),
               ),
             ),
@@ -323,19 +323,16 @@ class _PesquisarDataState extends State<PesquisarData> {
                       ),
                     ],
                   )
-                : Padding(
-                    padding:
-                        const EdgeInsets.only(top: 10, left: 16, right: 16),
-                    child: Text(
-                      "Insira uma data para ver a imagem do dia!",
-                      style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
+                : Text(
+                    textAlign: TextAlign.center,
+                    "Insira uma data para ver a imagem do dia!",
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.white,
+                      fontSize: 20,
                     ),
-                  )
+                  ),
           ],
         ),
       ),

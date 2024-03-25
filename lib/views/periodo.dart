@@ -83,25 +83,24 @@ class _PeriodoDataState extends State<PeriodoData> {
           centerTitle: true,
           backgroundColor: const Color(0xFF194B39),
           title: Text(
-            'Imagens por Período'.toUpperCase(),
+            'Imagens Por Período',
             style: GoogleFonts.poppins(
               fontWeight: FontWeight.bold,
               fontStyle: FontStyle.normal,
               color: Colors.white,
-              fontSize: 23,
+              fontSize: 25,
             ),
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(8, 0, 8, 16),
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 80),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
+                    padding: const EdgeInsets.fromLTRB(10, 0, 20, 0),
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
@@ -143,21 +142,40 @@ class _PeriodoDataState extends State<PeriodoData> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton.icon(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.red),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton.icon(
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.red),
+                    ),
+                    icon: const FaIcon(FontAwesomeIcons.trash,
+                        color: Colors.white),
+                    onPressed: () => _limpar(),
+                    label: Text(
+                      'Limpar',
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.normal,
+                        color: Colors.white,
+                        fontSize: 14,
                       ),
-                      icon: const FaIcon(FontAwesomeIcons.trash,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: ElevatedButton.icon(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          const Color(0xFF194B39),
+                        ),
+                      ),
+                      icon: const FaIcon(FontAwesomeIcons.magnifyingGlass,
                           color: Colors.white),
-                      onPressed: () => _limpar(),
+                      onPressed: () => _pesquisarimagemporperiodo(),
                       label: Text(
-                        'Limpar',
+                        'Pesquisar',
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.normal,
@@ -166,30 +184,8 @@ class _PeriodoDataState extends State<PeriodoData> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: ElevatedButton.icon(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            const Color(0xFF194B39),
-                          ),
-                        ),
-                        icon: const FaIcon(FontAwesomeIcons.magnifyingGlass,
-                            color: Colors.white),
-                        onPressed: () => _pesquisarimagemporperiodo(),
-                        label: Text(
-                          'Pesquisar',
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.normal,
-                            color: Colors.white,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               const SizedBox(height: 5),
               Expanded(
