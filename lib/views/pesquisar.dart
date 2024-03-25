@@ -146,12 +146,12 @@ class _PesquisarDataState extends State<PesquisarData> {
                       _selectedDate.isNotEmpty
                           ? DateFormat(' dd/MM/yyyy')
                               .format(DateTime.parse(_selectedDate))
-                          : '  Selecione uma data',
+                          : '  Escolha Uma Data',
                       style: GoogleFonts.poppins(
                         fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.normal,
                         color: Colors.white,
-                        fontSize: 14,
+                        fontSize: 18,
                       ),
                     ),
                   ],
@@ -234,41 +234,38 @@ class _PesquisarDataState extends State<PesquisarData> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 0, 50, 0),
-                                child: ElevatedButton.icon(
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                      const Color(0xFF194B39),
-                                    ),
-                                  ),
-                                  icon: const FaIcon(
-                                    FontAwesomeIcons.floppyDisk,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: () {
-                                    ImageHelper imageHelper = ImageHelper();
-                                    if (_imageUrl.isNotEmpty) {
-                                      imageHelper.downloadMedia(
-                                          context, _imageUrl); // Para imagens
-                                    } else if (_response != null) {
-                                      imageHelper.downloadMedia(
-                                          context, _response);
-                                    }
-                                  },
-                                  label: Text(
-                                    'Baixar',
-                                    style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.bold,
-                                      fontStyle: FontStyle.normal,
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                )),
+                            ElevatedButton.icon(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                  const Color(0xFF194B39),
+                                ),
+                              ),
+                              icon: const FaIcon(
+                                FontAwesomeIcons.floppyDisk,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                ImageHelper imageHelper = ImageHelper();
+                                if (_imageUrl.isNotEmpty) {
+                                  imageHelper.downloadMedia(
+                                      context, _imageUrl); // Para imagens
+                                } else if (_response != null) {
+                                  imageHelper.downloadMedia(context, _response);
+                                }
+                              },
+                              label: Text(
+                                'Baixar',
+                                style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.normal,
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
                             ElevatedButton.icon(
                               style: ButtonStyle(
                                 backgroundColor:

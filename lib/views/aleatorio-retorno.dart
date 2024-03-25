@@ -26,7 +26,7 @@ class _DetalhesImagemState extends State<DetalhesImagem> {
             fontWeight: FontWeight.bold,
             fontStyle: FontStyle.normal,
             color: Colors.white,
-            fontSize: 22,
+            fontSize: 20,
           ),
         ),
         centerTitle: true,

@@ -158,21 +158,21 @@ class _AutorState extends State<Autor> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text('Designer e Desenvolvedor',
+                                  textAlign: TextAlign.center,
                                   style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w700,
                                     fontStyle: FontStyle.normal,
                                     color:
                                         const Color.fromARGB(255, 16, 21, 24),
-                                    fontSize: 22,
+                                    fontSize: 25,
                                   )),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 12, 0, 0),
+                                padding: const EdgeInsets.only(top: 10),
                                 child: Text(
-                                    'Marcus Vinicius de Aguiar Paixão é um talentoso Designer e Desenvolvedor, com habilidades excepcionais no campo da criação e programação. Ele possui um olhar aguçado para o design estético e funcional, combinado com proficiência técnica em diversas tecnologias e linguagens de programação. Com sua criatividade e expertise, Marcus desempenha um papel fundamental no desenvolvimento do aplicativo Cosmic Vision, trazendo à vida interfaces intuitivas e experiências envolventes. Sua dedicação em encontrar soluções inovadoras e aprimorar constantemente o design e a usabilidade do aplicativo garantem que os usuários desfrutem de uma jornada cósmica única.',
+                                    'Marcus Vinicius de Aguiar Paixão é um talentoso Designer e Desenvolvedor, com habilidades excepcionais no campo da criação e programação. Ele possui um olhar aguçado para o design estético e funcional, combinado com proficiência técnica em diversas tecnologias e linguagens de programação. Com sua criatividade e expertise, empenha um papel fundamental no desenvolvimento do aplicativo, trazendo à vida interfaces intuitivas e experiências envolventes.',
                                     textAlign: TextAlign.justify,
                                     style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w400,
+                                      fontWeight: FontWeight.w500,
                                       fontStyle: FontStyle.normal,
                                       color: const Color.fromARGB(
                                           255, 87, 99, 108),
@@ -182,93 +182,87 @@ class _AutorState extends State<Autor> {
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              24, 0, 24, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              ElevatedButton.icon(
-                                onPressed: () => _abrirLink(context,
-                                    'http://www.linkedin.com/in/marcus-vinicius-paixao'),
-                                label: Text(
-                                  'Linkedin',
-                                  style: GoogleFonts.poppins(
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            ElevatedButton.icon(
+                              onPressed: () => _abrirLink(context,
+                                  'http://www.linkedin.com/in/marcus-vinicius-paixao'),
+                              label: Text(
+                                'Linkedin',
+                                style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              icon: const FaIcon(
+                                FontAwesomeIcons.linkedinIn,
+                                color: Colors.white,
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        const Color(0xFF0E76A8)),
+                                textStyle: MaterialStateProperty.all<TextStyle>(
+                                  GoogleFonts.poppins(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 16,
                                     color: Colors.white,
                                   ),
                                 ),
-                                icon: const FaIcon(
-                                  FontAwesomeIcons.linkedinIn,
-                                  color: Colors.white,
+                                padding: MaterialStateProperty.all<
+                                    EdgeInsetsGeometry>(
+                                  const EdgeInsets.symmetric(horizontal: 20),
                                 ),
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          const Color(0xFF0E76A8)),
-                                  textStyle:
-                                      MaterialStateProperty.all<TextStyle>(
-                                    GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  padding: MaterialStateProperty.all<
-                                      EdgeInsetsGeometry>(
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                  ),
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(40),
-                                    ),
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(40),
                                   ),
                                 ),
                               ),
-                              ElevatedButton.icon(
-                                onPressed: () => _abrirLink(
-                                    context, 'https://github.com/Vini1404'),
-                                label: Text(
-                                  'GitHub',
-                                  style: GoogleFonts.poppins(
+                            ),
+                            ElevatedButton.icon(
+                              onPressed: () => _abrirLink(
+                                  context, 'https://github.com/Vini-Paixao'),
+                              label: Text(
+                                'GitHub',
+                                style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              icon: const FaIcon(
+                                FontAwesomeIcons.github,
+                                color: Colors.white,
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        const Color(0xFF171515)),
+                                textStyle: MaterialStateProperty.all<TextStyle>(
+                                  GoogleFonts.poppins(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 16,
                                     color: Colors.white,
                                   ),
                                 ),
-                                icon: const FaIcon(
-                                  FontAwesomeIcons.github,
-                                  color: Colors.white,
+                                padding: MaterialStateProperty.all<
+                                    EdgeInsetsGeometry>(
+                                  const EdgeInsets.symmetric(horizontal: 20),
                                 ),
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          const Color(0xFF171515)),
-                                  textStyle:
-                                      MaterialStateProperty.all<TextStyle>(
-                                    GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  padding: MaterialStateProperty.all<
-                                      EdgeInsetsGeometry>(
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                  ),
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(40),
-                                    ),
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(40),
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -395,12 +389,13 @@ class _AutorState extends State<Autor> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text('Idealista e Incentivador',
+                                  textAlign: TextAlign.center,
                                   style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w700,
                                     fontStyle: FontStyle.normal,
                                     color:
                                         const Color.fromARGB(255, 16, 21, 24),
-                                    fontSize: 22,
+                                    fontSize: 25,
                                   )),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
