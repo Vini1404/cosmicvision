@@ -15,11 +15,7 @@ O aplicativo Cosmic Vision oferece as seguintes funcionalidades:
 
 ## Como usar
 
-Para começar a usar o Cosmic Vision, siga estas etapas:
-
-1. Faça o download do aplicativo na loja de aplicativos do seu dispositivo.
-2. Abra o aplicativo e navegue pelas várias opções disponíveis.
-3. Selecione a opção desejada para visualizar as imagens.
+O aplicativo ainda não foi publicado, mas você pode fazer um git clone neste meu projeto e executar com o Android Studio ou IDE que usa em projetos Flutter para visualizar.
 
 ## Contribuindo
 
